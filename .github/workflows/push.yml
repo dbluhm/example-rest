@@ -5,13 +5,6 @@ on:
   pull_request:
 
 jobs:
-  dco:
-    name: DCO Signed-off-by present
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: |
-        (for commit in $(git rev-list $GITHUB_BASE_REF..$GITHUB_HEAD_REF); do echo $(git show -s --format=%B $commit); git show -s --format=%B $commit | grep >/ dev/null 2>&1 'Signed-off-by: ' || exit 1; done)
   format:
     name: Formatting (with black)
     runs-on: ubuntu-latest
