@@ -3,8 +3,8 @@ import fastapi
 
 app = fastapi.FastAPI()
 
-# def main():
-
+# This populates a list, so we can test our GET and DELETE functions,
+# without having to submit a bunch of POST requests first
 quotes = [
     "You were the chosen one!",
     "It was said that you would destroy the Sith, not join them!",
@@ -36,6 +36,7 @@ async def read_item(item_id: int):
     return {"Item " + str(item_id): quotes[item_id]}
 
 
+# Delete an item from the list by a supplied index
 @app.get("/delete/{item_id}")
 async def del_item(item_id: int):
     if quotes[item_id] is not None:
@@ -43,5 +44,8 @@ async def del_item(item_id: int):
     return
 
 
-# if __name__ == "__main__":
-#     main()
+# and lastly, append an item to the end of the list
+@app.post("/append/")
+async def post_item(quote: str):
+    quotes.append(quote)
+    return
